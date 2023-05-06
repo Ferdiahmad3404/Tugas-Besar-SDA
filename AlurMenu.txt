@@ -1,0 +1,22 @@
+Menu Awal
+1. Buat
+2. Panduan
+0. Exit
+Opsi Menu :
+
+Menu Buat
+Input jumlah tim (ketik 0 untuk kembali):
+
+Input Nama tim (ketik 0 untuk kembali):
+
+
+Menu Panduan
+{
+Teori Pembagian
+}
+0. Kembali
+ 
+
+Visualisasi
+Menu menu diatas terserah hanif mau gimana visualisasu nya
+
