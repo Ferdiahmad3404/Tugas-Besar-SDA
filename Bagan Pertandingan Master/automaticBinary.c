@@ -89,6 +89,33 @@ int main() {
     printf("Root Left Right = %d \n", root->left->right->data);
     printf("Root Right Left = %d \n", root->right->left->data);
     printf("Root Right Right = %d \n", root->right->right->data);
+
+int inProgram, input;
+inProgram = 1;
     
-    return 0;
+while (inProgram == 1)
+    {
+        printf("\n1. Enque Q1\n2. Deque Q1\n3. Add First N1\n4. Add Last N1\n5. Add After N1\n6. Delete First N1\n7. Exit\n");
+        scanf("%d",&input);
+    
+        switch (input)
+        {
+        case 1:
+            break;
+
+        case 2:
+            break;
+
+        case 3:
+            break;
+
+        default:
+            break;
+        }
+        printf("\n\n");
+    }
+    
+    
+
+	return 0;
 }
