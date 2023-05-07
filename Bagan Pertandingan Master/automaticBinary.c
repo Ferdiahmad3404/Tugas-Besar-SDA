@@ -1,11 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-
-struct Node {
-    int data;
-    struct Node* left;
-    struct Node* right;
-};
+#include "automaticBinary.h"
 
 // Fungsi untuk membuat sebuah node baru
 struct Node* createNode(int data) {

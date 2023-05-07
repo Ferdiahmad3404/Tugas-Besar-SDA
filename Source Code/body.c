@@ -43,7 +43,7 @@ void CreateTree(address *root, int TotalTim)
 /* IS : Tree belum terbuat
     FS : Tree sudah terbuat
     Author: Revandi
-	Nim	: 221524055
+	Nim	: 221524056
 */
 {	
 	address P, Q, X;
