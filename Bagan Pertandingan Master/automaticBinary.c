@@ -1,3 +1,9 @@
+/*
+Dekripsi : body program bagan pertandingan
+Tanggal Pembuatan : 8/5/2023
+Author : Ferdi, Hanif, Revandi.
+*/
+
 #include "automaticBinary.h"
 
 void createBracket(struct Node** node, char** names, int n) {

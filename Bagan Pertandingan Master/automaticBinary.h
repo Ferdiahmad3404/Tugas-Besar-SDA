@@ -1,3 +1,9 @@
+/*
+Dekripsi : header program bagan pertandingan
+Tanggal Pembuatan : 8/5/2023
+Author : Ferdi, Hanif, Revandi.
+*/
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
