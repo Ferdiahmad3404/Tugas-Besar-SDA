@@ -39,31 +39,34 @@ void printBracket(struct Node* node, int level) {
 }
 
 
+// Prosedur untuk menampilkan tampilan menu utama
+void tampilanMenuUtama(struct Node** node, char** names, int n){
+    printf("Bagan Pertandingan");
+    printf("1. Buat Bagan");
+    printf("2. Panduan");
+    printf("99. Exit");
+    pilihTampilanMenu(node, names, n);
+}
 
-// Prosedur untuk menampilkan menu utama
-void menuUtama(){
-    int inProgram, input;
-    inProgram = 1;
-    
-    while (inProgram == 1)
-        {
-            printf("\n1. Enque Q1\n2. Deque Q1\n3. Add First N1\n4. Add Last N1\n5. Add After N1\n6. Delete First N1\n7. Exit\n");
-            scanf("%d",&input);
-    
-            switch (input)
-            {
-            case 1:
-                break;
-
-            case 2:
-                break;
-
-            case 3:
-                break;
-
-            default:
-                break;
-            }
-            printf("\n\n");
-        }
+// Prosedur untuk memilih menu di menu utama
+void pilihTampilanMenu(struct Node** node, char** names, int n){
+    int input;
+    scanf("%d", &input);
+    switch (input)
+    {
+    case 1:
+        system("cls");
+        createBracket(node, names, n);
+        break;
+    case 2:
+        system("cls");
+        printf("panduan");
+        break;
+    case 99:
+        exit(0);
+        break;
+    default:
+        printf("Input tidak valid.\n");
+        break;
+    }
 }
