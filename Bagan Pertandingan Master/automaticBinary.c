@@ -10,6 +10,7 @@ void createBracket(struct Node** node, char** names, int n) {
         (*node)->right = NULL;
     }
     else {
+        
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->left = (struct Node*)malloc(sizeof(struct Node));
         (*node)->right = (struct Node*)malloc(sizeof(struct Node));
@@ -41,12 +42,11 @@ void printBracket(struct Node* node, int level) {
 
 
 // Prosedur untuk menampilkan tampilan menu utama
-void tampilanMenuUtama(struct Node** node, char** names, int n){
+void tampilanMenuUtama(){
     printf("Bagan Pertandingan\n");
     printf("1. Buat Bagan\n");
     printf("2. Panduan\n");
     printf("99. Exit\n");
-    pilihTampilanMenu(node, names, n);
 }
 
 void printLevelOrder(struct Node* root) {
@@ -74,21 +74,12 @@ void printLevelOrder(struct Node* root) {
 void pilihTampilanMenu(struct Node** node, char** names, int n){
     int input;
     scanf("%d", &input);
-    switch (input)
-    {
-    case 1:
-        system("cls");
-        createBracket(node, names, n);
-        break;
-    case 2:
-        system("cls");
-        printf("panduan\n");
-        break;
-    case 99:
-        exit(0);
-        break;
-    default:
-        printf("Input tidak valid.\n");
-        break;
-    }
+   
+}
+
+int inputan(){
+    int opsi;
+    printf("Pilih Opsi : ");
+    scanf("%d",&opsi);
+    return opsi;
 }
