@@ -1,9 +1,11 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <math.h>
 
 // Kamus Data
 struct Node {
-    int data;
+    char* name;
     struct Node* left;
     struct Node* right;
 };
@@ -12,17 +14,14 @@ struct Node {
 /*  S P E S I F I K A S I  */
 /***************************/
 
-struct Node* createNode(int data);
-// Fungsi untuk membuat sebuah node baru
+void createBracket(struct Node** node, char** names, int n);
+// Fungsi untuk membuat node yang membentuk menjadi tree / bracket secara otomatis sesuai dengan jumlah sebanyak n (generator tree)
 
-struct Node* createTree(int arr[], int n);
-// Fungsi untuk membuat tree secara otomatis sesuai dengan jumlah node yang di inginkan (generator tree)
+int getLevel(struct Node* node, char* name, int level);
+// Fungsi ini untuk mendapatkan level dari sebuah tree tersebut
 
-int getLevel(struct Node* root, int data, int level);
-// Fungsi untuk mendapatkan level dari sebuah tree yang terbentuk
-
-void printLevelOrder(struct Node* root);
-// Prosedur untuk menampilkan binary tree dengan level order
+void printBracket(struct Node* node, int level);
+// Prosedur untuk menampilkan binary tree yang berbentuk bracket
 
 
 
