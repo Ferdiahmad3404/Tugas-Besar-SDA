@@ -23,6 +23,10 @@ int getLevel(struct Node* node, char* name, int level);
 void printBracket(struct Node* node, int level);
 // Prosedur untuk menampilkan binary tree yang berbentuk bracket
 
+void pilihTampilanMenu(struct Node** node, char** names, int n);
+
+void tampilanMenuUtama(struct Node** node, char** names, int n);
+
 
 
 

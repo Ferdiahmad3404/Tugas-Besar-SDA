@@ -41,10 +41,10 @@ void printBracket(struct Node* node, int level) {
 
 // Prosedur untuk menampilkan tampilan menu utama
 void tampilanMenuUtama(struct Node** node, char** names, int n){
-    printf("Bagan Pertandingan");
-    printf("1. Buat Bagan");
-    printf("2. Panduan");
-    printf("99. Exit");
+    printf("Bagan Pertandingan\n");
+    printf("1. Buat Bagan\n");
+    printf("2. Panduan\n");
+    printf("99. Exit\n");
     pilihTampilanMenu(node, names, n);
 }
 
@@ -60,7 +60,7 @@ void pilihTampilanMenu(struct Node** node, char** names, int n){
         break;
     case 2:
         system("cls");
-        printf("panduan");
+        printf("panduan\n");
         break;
     case 99:
         exit(0);
