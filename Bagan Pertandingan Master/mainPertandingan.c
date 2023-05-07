@@ -2,6 +2,7 @@
 int main() {
     int inProgram = 1;
     int input = 0;
+
     jump: while (inProgram == 1)
     
     {
@@ -16,6 +17,12 @@ int main() {
             scanf("%d", &n);
 
             // Input nama-nama tim
+            if (n<2)
+            {
+                printf("Tidak bisa membuat bagan pertandingan harus lebih dari 1 tim\n");
+                exit(0);
+            }
+            
             char** names = (char**)malloc(sizeof(char*) * n);
             printf("Masukkan nama-nama tim:\n");
             for (int i = 0; i < n; i++) {
@@ -26,6 +33,7 @@ int main() {
             printf("Anda yakin ?\n1. Ya\n2. Kembali\n");
             input = inputan();
             system("cls");
+                    
             switch (input)
             {
             case 1:
@@ -71,7 +79,11 @@ int main() {
             break;
         case 2:
             system("cls");
-            printf("panduan\n");
+            printf("Panduan\n");
+            printf("1. Tim yang berpartisipasi dalam turnamen atau kejuaraan harus lebih dari satu.\n");
+            printf("2. Tim yang kalah dalam pertandingan akan langsung gugur.\n");
+            printf("3. Tim yang bertahan sampai akhir keluar sebagai pemenang.\n");
+            printf("4. Pembagian tim menggunakan sistem “Bye”.\n");
             break;
         case 99:
             exit(0);

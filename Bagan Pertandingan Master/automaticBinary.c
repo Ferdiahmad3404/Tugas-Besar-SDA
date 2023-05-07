@@ -1,22 +1,11 @@
 #include "automaticBinary.h"
 
-void createBracket(struct Node** node, char** names, int n) {
-    if (n == 1) {
-        (*node) = (struct Node*)malloc(sizeof(struct Node));
-        (*node)->name = (char*)malloc(sizeof(char) * 50);
-        strcpy((*node)->name, names[0]);
-        (*node)->skor = -1;
-        (*node)->left = NULL;
-        (*node)->right = NULL;
-    }
-    else {
-        
-        (*node) = (struct Node*)malloc(sizeof(struct Node));
-        (*node)->left = (struct Node*)malloc(sizeof(struct Node));
-        (*node)->right = (struct Node*)malloc(sizeof(struct Node));
-        createBracket(&((*node)->left), names, n / 2);
-        createBracket(&((*node)->right), names + n / 2, n - n / 2);
-    }
+void createBracket(struct Node** node, char** names, int n) {    
+    (*node) = (struct Node*)malloc(sizeof(struct Node));
+    (*node)->left = (struct Node*)malloc(sizeof(struct Node));
+    (*node)->right = (struct Node*)malloc(sizeof(struct Node));
+    createBracket(&((*node)->left), names, n / 2);
+    createBracket(&((*node)->right), names + n / 2, n - n / 2);
 }
 
 void printBracket(struct Node* node, int level) {
@@ -71,7 +60,7 @@ void printLevelOrder(struct Node* root) {
 }
 
 // Prosedur untuk memilih menu di menu utama
-void pilihTampilanMenu(struct Node** node, char** names, int n){
+void pilihTampilanMenu(){
     int input;
     scanf("%d", &input);
    
