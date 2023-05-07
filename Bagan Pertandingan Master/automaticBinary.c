@@ -5,6 +5,7 @@ void createBracket(struct Node** node, char** names, int n) {
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->name = (char*)malloc(sizeof(char) * 50);
         strcpy((*node)->name, names[0]);
+        (*node)->skor = -1;
         (*node)->left = NULL;
         (*node)->right = NULL;
     }
@@ -46,6 +47,27 @@ void tampilanMenuUtama(struct Node** node, char** names, int n){
     printf("2. Panduan\n");
     printf("99. Exit\n");
     pilihTampilanMenu(node, names, n);
+}
+
+void printLevelOrder(struct Node* root) {
+    if (root == NULL) {
+        return;
+    }
+    struct Node** queue = (struct Node**)malloc(sizeof(struct Node*) * 100);
+    int front = 0, rear = 0;
+    queue[rear++] = root;
+    while (front < rear) {
+        struct Node* current = queue[front++];
+        printf("%s \n", current->name);
+        printf("%d ", current->skor);
+        if (current->left != NULL) {
+            queue[rear++] = current->left;
+        }
+        if (current->right != NULL) {
+            queue[rear++] = current->right;
+        }
+    }
+    free(queue);
 }
 
 // Prosedur untuk memilih menu di menu utama

@@ -6,6 +6,7 @@
 // Kamus Data
 struct Node {
     char* name;
+    int skor;
     struct Node* left;
     struct Node* right;
 };
