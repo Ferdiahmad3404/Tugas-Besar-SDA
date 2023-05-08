@@ -11,26 +11,29 @@ Author : Ferdi, Hanif, Revandi.
 #include <math.h>
 
 // Kamus Data
-struct Node {
+typedef struct Node * address;
+typedef struct Node {
     char* name;
     int skor;
-    struct Node* left;
-    struct Node* right;
+    address left;
+    address right;
 };
+
+
 
 /***************************/
 /*  S P E S I F I K A S I  */
 /***************************/
 
-void printLevelOrder(struct Node* node);
+void printLevelOrder(address node);
 
-void createBracket(struct Node** node, char** names, int n);
+void createBracket(address* node, char** names, int n);
 // Fungsi untuk membuat node yang membentuk menjadi tree / bracket secara otomatis sesuai dengan jumlah sebanyak n (generator tree)
 
-int getLevel(struct Node* node, char* name, int level);
+int getLevel(address node, char* name, int level);
 // Fungsi ini untuk mendapatkan level dari sebuah tree tersebut
 
-void printBracket(struct Node* node, int level);
+void printBracket(address node, int level);
 // Prosedur untuk menampilkan binary tree yang berbentuk bracket
 
 

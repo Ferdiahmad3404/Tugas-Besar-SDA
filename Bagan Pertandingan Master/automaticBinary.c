@@ -6,7 +6,7 @@ Author : Ferdi, Hanif, Revandi.
 
 #include "automaticBinary.h"
 
-void createBracket(struct Node** node, char** names, int n) {
+void createBracket(address* node, char** names, int n) {
     if (n == 1) {
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->name = (char*)malloc(sizeof(char) * 50);
@@ -25,7 +25,7 @@ void createBracket(struct Node** node, char** names, int n) {
     }
 }
 
-void printBracket(struct Node* node, int level) {
+void printBracket(address node, int level) {
     if (node == NULL) {
         return;
     }
@@ -55,15 +55,15 @@ void tampilanMenuUtama(){
     printf("99. Exit\n");
 }
 
-void printLevelOrder(struct Node* root) {
+void printLevelOrder(address root) {
     if (root == NULL) {
         return;
     }
-    struct Node** queue = (struct Node**)malloc(sizeof(struct Node*) * 100);
+    address* queue = (struct Node**)malloc(sizeof(struct Node*) * 100);
     int front = 0, rear = 0;
     queue[rear++] = root;
     while (front < rear) {
-        struct Node* current = queue[front++];
+        address current = queue[front++];
         printf("%s \n", current->name);
         printf("%d ", current->skor);
         if (current->left != NULL) {
@@ -77,7 +77,7 @@ void printLevelOrder(struct Node* root) {
 }
 
 // Prosedur untuk memilih menu di menu utama
-void pilihTampilanMenu(struct Node** node, char** names, int n){
+void pilihTampilanMenu(address* node, char** names, int n){
     int input;
     scanf("%d", &input);
    
