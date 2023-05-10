@@ -36,6 +36,10 @@ int getLevel(address node, char* name, int level);
 void printBracket(address node, int level);
 // Prosedur untuk menampilkan binary tree yang berbentuk bracket
 
+void tampilanPanduan();
+
+int inputan();
+
 
 
 

@@ -76,11 +76,13 @@ void printLevelOrder(address root) {
     free(queue);
 }
 
-// Prosedur untuk memilih menu di menu utama
-void pilihTampilanMenu(struct Node** node, char** names, int n){
-    int input;
-    scanf("%d", &input);
-   
+void tampilanPanduan(){
+    system("cls");
+    printf("Panduan\n");
+    printf("1. Tim yang berpartisipasi dalam turnamen atau kejuaraan harus lebih dari satu.\n");
+    printf("2. Tim yang kalah dalam pertandingan akan langsung gugur.\n");
+    printf("3. Tim yang bertahan sampai akhir keluar sebagai pemenang.\n");
+    printf("4. Pembagian tim menggunakan sistem “Bye”.\n");
 }
 
 int inputan(){

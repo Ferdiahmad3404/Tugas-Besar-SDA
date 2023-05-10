@@ -19,14 +19,14 @@ int main() {
             system("cls");
                 // Input jumlah tim
             int n;
-            printf("Masukkan jumlah tim: ");
+            input: printf("Masukkan jumlah tim: ");
             scanf("%d", &n);
 
             // Input nama-nama tim
             if (n<2)
             {
                 printf("Tidak bisa membuat bagan pertandingan harus lebih dari 1 tim\n");
-                exit(0);
+                goto input;
             }
             
             char** names = (char**)malloc(sizeof(char*) * n);
@@ -84,12 +84,15 @@ int main() {
             }
             break;
         case 2:
-            system("cls");
-            printf("Panduan\n");
-            printf("1. Tim yang berpartisipasi dalam turnamen atau kejuaraan harus lebih dari satu.\n");
-            printf("2. Tim yang kalah dalam pertandingan akan langsung gugur.\n");
-            printf("3. Tim yang bertahan sampai akhir keluar sebagai pemenang.\n");
-            printf("4. Pembagian tim menggunakan sistem “Bye”.\n");
+            tampilanPanduan();
+            printf("\n 0. Kembali\n");
+            input = inputan();
+            
+            if(input == 0){
+                system("cls");
+                goto jump;
+            }
+
             break;
         case 99:
             exit(0);
