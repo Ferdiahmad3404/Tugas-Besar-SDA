@@ -77,7 +77,7 @@ void printLevelOrder(address root) {
 }
 
 // Prosedur untuk memilih menu di menu utama
-void pilihTampilanMenu(address* node, char** names, int n){
+void pilihTampilanMenu(struct Node** node, char** names, int n){
     int input;
     scanf("%d", &input);
    
