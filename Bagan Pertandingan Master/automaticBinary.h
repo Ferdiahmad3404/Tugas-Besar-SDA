@@ -24,9 +24,6 @@ typedef struct Node {
 /***************************/
 /*  S P E S I F I K A S I  */
 /***************************/
-
-void printLevelOrder(address node);
-
 void createBracket(address* node, char** names, int n);
 // Fungsi untuk membuat node yang membentuk menjadi tree / bracket secara otomatis sesuai dengan jumlah sebanyak n (generator tree)
 

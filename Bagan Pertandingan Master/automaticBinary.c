@@ -55,27 +55,6 @@ void tampilanMenuUtama(){
     printf("99. Exit\n");
 }
 
-void printLevelOrder(address root) {
-    if (root == NULL) {
-        return;
-    }
-    address* queue = (struct Node**)malloc(sizeof(struct Node*) * 100);
-    int front = 0, rear = 0;
-    queue[rear++] = root;
-    while (front < rear) {
-        address current = queue[front++];
-        printf("%s \n", current->name);
-        printf("%d ", current->skor);
-        if (current->left != NULL) {
-            queue[rear++] = current->left;
-        }
-        if (current->right != NULL) {
-            queue[rear++] = current->right;
-        }
-    }
-    free(queue);
-}
-
 void tampilanPanduan(){
     system("cls");
     printf("Panduan\n");
