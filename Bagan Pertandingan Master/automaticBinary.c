@@ -56,7 +56,6 @@ void runProgram(){
                             system("pause");
                     } else{
                         input = 0;
-                        
                     }
                     
                 } while ( root->skor == -1);
