@@ -49,13 +49,14 @@ void tampilanMenuUtama();
 
 void inputOpsiMenu();
 
+void tampilanEditSkor();
+
 void updateParentNode(address parent, char* name);
 
 void editScoreByName(address root, char* name, int newScore);
 
-address searchParentByChildName(address root, char* name);
-
 address searchByName(address root, char* name);
 
+address searchParentByChildName(address root, char* childName);
 
 

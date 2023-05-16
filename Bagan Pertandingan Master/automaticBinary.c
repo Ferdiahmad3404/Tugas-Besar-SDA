@@ -16,12 +16,12 @@ void runProgram(){
         case 1:
             system("cls");
             inputJumlahTim();
-            char** names = (char**)malloc(sizeof(char*) * totalTim);
+            char** namaTim = (char**)malloc(sizeof(char*) * totalTim);
             printf("Masukkan nama-nama tim:\n");
             for (int i = 0; i < totalTim; i++) {
-                names[i] = (char*)malloc(sizeof(char) * 50);
+                namaTim[i] = (char*)malloc(sizeof(char) * 50);
                 printf("Tim %d: ", i + 1);
-                scanf("%s", names[i]);
+                scanf("%s", namaTim[i]);
             }
             printf("\n\nAnda yakin ?\n1. Ya\n2. Kembali\n");
             inputOpsiMenu();
@@ -30,37 +30,40 @@ void runProgram(){
                 runProgram();
             }
             system("cls");
-            createBracket(&root,names,totalTim);
+            createBracket(&root,namaTim,totalTim);
             for (int i = 0; i < totalTim; i++) {
-                free(names[i]);
+                free(namaTim[i]);
             }
-            free(names);
-                do{
-                    printBracket(root,0);
-                    tampilanEditSkor();
-                    inputOpsiMenu();
+            
+            do  
+            {
+                printBracket(root,0);
+                tampilanEditSkor();
+                inputOpsiMenu();
                     if (input == 1)
                     {
-                        char* name = "Ferdi";
-                            char* namess = "Jeihan";
-                            int skor;
-                            // printf("\nMasukkan nama tim yang ingin di edit : ");
-                            // scanf("%s", name);
-                            printf("\n Pememang : %s\n",root->name);
-                            editScoreByName(root,name,10);
-                            printBracket(root,0);
-                            editScoreByName(root,namess,11);
-                            updateParentNode(root,name);
-                            printBracket(root,0);
-
-                            system("pause");
+                        char* tim1 = "Ferdi";
+                        char* tim2 = "Hanif";
+                        char* tim3 = "Yusuf";
+                        char* tim4 = "Revandi";
+                        printf("\nPememang : %s\n",root->name);
+                        editScoreByName(root,tim1,3);
+                        system("pause");
+                        editScoreByName(root,tim2,2);
+                        system("pause");
+                        editScoreByName(root,tim3,2);
+                        system("pause");
+                        editScoreByName(root,tim4,1);
+                        system("pause");
+                        updateParentNode(root,tim1);
+                        updateParentNode(root,tim3);
+                        printBracket(root,0);    
                     } else{
                         input = 0;
                     }
-                    
-                } while ( root->skor == -1);
-
-            
+            } while (strcmp(root->name, "TBD") == 0);
+            printf("\nPememang : %s\n",root->name);
+            system("pause");
             break;
         case 2:
             tampilanPanduan();
@@ -154,42 +157,42 @@ void tampilanEditSkor(){
     printf("0. Exit\n");
 }
 
-address searchParentByChildName(address root, char* name) {
-    if (strcmp(root->right->name, name) == 0) {
-        return root;
+address searchParentByChildName(address root, char* childName) {
+    if (root == NULL) {
+        return NULL; // Tidak dapat mencari jika root tidak ada
     }
 
-    if (strcmp(root->left->name, name) == 0) {
-        return root;
+    if ((root->left != NULL && strcmp(root->left->name, childName) == 0) ||
+        (root->right != NULL && strcmp(root->right->name, childName) == 0)) {
+        return root; // Node parent ditemukan: root merupakan parent dari child dengan nama yang cocok
     }
 
-    if (strcmp(name, root->left->name) < 0) {
-        return searchParentByChildName(root->left, name);
-    } else if(strcmp(name, root->right->name) < 0){
-        return searchParentByChildName(root->right, name);
-    }
-}
-
-address searchByName(address root, char* name) {
-    if (root == NULL || strcmp(root->name, name) == 0) {
-        return root;
+    address parent = searchParentByChildName(root->left, childName);
+    if (parent == NULL) {
+        parent = searchParentByChildName(root->right, childName);
     }
 
-    if (strcmp(name, root->name) < 0) {
-        return searchByName(root->left, name);
-    } else {
-        return searchByName(root->right, name);
-    }
+    return parent;
 }
 
 
-void editScoreByName(address root, char* name, int newScore) {
+// address searchByName(address root, char* name) {
     
+//     if (root == NULL || strcmp(root->name, name) == 0) {
+//         return root;
+//     }
+//     printf("%s",name);
+//     system("pause");
+//     if (strcmp(name, root->name) != 0) {
+//         searchByName(root->left, name);
+//         searchByName(root->right, name);
+//     }
+// }
+void editScoreByName(address root, char* name, int newScore) {
     address node = searchByName(root, name);
+
     if (node != NULL) {
         node->skor = newScore;
-    } else {
-        printf("Node dengan nama %s tidak ditemukan.\n", name);
     }
 }
 
@@ -197,20 +200,26 @@ void updateParentNode(address root, char* name) {
     address parent = searchParentByChildName(root, name);
     int leftScore;
     int rightScore;
-    if (parent->right->skor != -1 && parent->left->skor != -1)
-    {
+    
         if (parent == NULL ) {
             return; // Tidak dapat memperbarui jika parent atau parent anak tidak ada
         }
-        if(parent->left != NULL && parent->right != NULL){
-            leftScore = parent->left->skor;
-            rightScore = parent->right->skor;
-        } else if (parent->left == NULL && parent->right != NULL){
-            leftScore = 0;
-            rightScore = parent->right->skor;
-        } else if (parent->left != NULL && parent->right == NULL){
-            leftScore = parent->left->skor;
+        if (parent->left == NULL && parent->right == NULL)
+        {
+            return;
+        }
+        if (parent->left == NULL && parent->right->skor == -1)
+        {
+            leftScore = -1;
             rightScore = 0;
+        } else if (parent->right == NULL && parent->left->skor == -1)
+        {
+            leftScore = 0;
+            rightScore = -1;
+        } else if (parent->right->skor == -1 && parent->left->skor == -1)
+        {
+            leftScore = parent->left->skor;
+            rightScore = parent->right->skor;
         }
 
         if (leftScore > rightScore ) {
@@ -219,6 +228,21 @@ void updateParentNode(address root, char* name) {
             parent->name = parent->right->name; // Mengisi nama parent parent dengan nama parent anak sebelah kanan
         }
     }
+
     
-    
+address searchByName(address root, char* name) {
+    if (root == NULL) {
+        return NULL; // Tidak dapat mencari jika root tidak ada
+    }
+
+    if (strcmp(root->name, name) == 0) {
+        return root; // Node dengan nama yang cocok ditemukan
+    }
+
+    address foundNode = searchByName(root->left, name);
+    if (foundNode == NULL) {
+        foundNode = searchByName(root->right, name);
+    }
+
+    return foundNode;
 }
