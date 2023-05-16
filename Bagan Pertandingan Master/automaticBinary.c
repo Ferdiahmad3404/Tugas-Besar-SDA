@@ -10,7 +10,7 @@ Author : Ferdi, Hanif, Revandi.
 
 void runProgram(){
         tampilanMenuUtama();
-        inputOpsiMenu(&input);
+        inputOpsiMenu();
         switch (input)
         {
         case 1:
@@ -18,11 +18,18 @@ void runProgram(){
             inputJumlahTim();
             char** names = (char**)malloc(sizeof(char*) * totalTim);
             printf("Masukkan nama-nama tim:\n");
-            for (int i = 0; i < totalTim; i++) {
+            // for (int i = 0; i < totalTim; i++){
+            //     names[i] = (char*)malloc(sizeof(char) * 50);
+            //     printf("Tim %d: ", i + 1);
+            //     scanf("%s", names[i]);
+            // }
+            for (size_t i = 0; i < totalTim; i++)
+            {
                 names[i] = (char*)malloc(sizeof(char) * 50);
                 printf("Tim %d: ", i + 1);
                 scanf("%s", names[i]);
             }
+            
             printf("\n\nAnda yakin ?\n1. Ya\n2. Kembali\n");
             inputOpsiMenu();
             if (input == 2)
@@ -30,9 +37,12 @@ void runProgram(){
                 runProgram();
             }
             
-            createBracket(&root,names,totalTim);
             printf("%d", root->id);
-            printBracket(root,0);
+            //printBinaryTree(root,0);
+            printf("\n");
+            printLevelOrder(root);
+            printf("\n");
+            
             for (int i = 0; i < totalTim; i++) {
                 free(names[i]);
             }
@@ -158,7 +168,105 @@ void inputJumlahTim(){
         printf("Jumlah tim tidak boleh kurang dari 2 !!!");
         inputJumlahTim();
     }
-    
+
+/* Print nodes at a given level */
+void printGivenLevel(address root, int level)
+{
+    if (root == NULL)
+        return;
+    if (level == 1){
+        printf("%s ", root->name);
+        printf("%d\n", root->skor);
+    }
+    else if (level > 1) {
+        printGivenLevel(root->left, level - 1);
+        printGivenLevel(root->right, level - 1);
+    }
+}
+ 
+void printLevelOrder(address root)
+{
+    int h = height(root);
+    int i;
+    for (i = 1; i <= h; i++) {
+        printGivenLevel(root, i);
+        printf("\n");
+    }
+}
+
+int height(address node)
+{
+    if (node == NULL)
+        return 0;
+    else {
+        /* compute the height of each subtree */
+        int lheight = height(node->left);
+        int rheight = height(node->right);
+ 
+        /* use the larger one */
+        if (lheight > rheight) {
+            return (lheight + 1);
+        }
+        else {
+            return (rheight + 1);
+        }
+    }
+}
+
+// //  print tree
+// void printBinaryTree(address node, int level)
+// {
+//     queue<Node*> treeLevel, temp;
+//     treeLevel.push(root);
+//     int counter = 0;
+//     int height = heightOfTree(root) - 1;
+//     double numberOfElements = pow(2, (height + 1)) - 1;
+//     while (counter <= height) {
+//         Node* removed = treeLevel.front();
+//         treeLevel.pop();
+//         if (temp.empty()) {
+//             printSpace(numberOfElements
+//                            / pow(2, counter + 1),
+//                        removed);
+//         }
+//         else {
+//             printSpace(numberOfElements / pow(2, counter),
+//                        removed);
+//         }
+//         if (removed == nullptr) {
+//             temp.push(nullptr);
+//             temp.push(nullptr);
+//         }
+//         else {
+//             temp.push(removed->left);
+//             temp.push(removed->right);
+//         }
+//         if (treeLevel.empty()) {
+//             cout << endl << endl;
+//             treeLevel = temp;
+//             while (!temp.empty()) {
+//                 temp.pop();
+//             }
+//             counter++;
+//         }
+//     }
+// }
+
+//printspace
+// void printSpace(double n, address removed)
+// {
+//     for (; n > 0; n--) {
+//         cout << "\t";
+//     }
+//     if (removed == nullptr) {
+//         cout << " ";
+//     }
+//     else {
+//         cout << removed->data;
+//     }
+// }   
+
+
     
 }
 
@@ -198,13 +306,13 @@ void inputJumlahTim(){
 // }
 
 address searchAddress(address root, int oldname){
-    address lokasi;
-    if ((oldname == root->name) && (root != NULL)){
-        lokasi = root;
-        return lokasi;
-    }
-    else {
-        searchAddress(&(root->left));
-        searchAddress(&(root->right));
-    }
+    //address lokasi;
+    // if ((oldname == root->name) && (root != NULL)){
+    //     lokasi = root;
+    //     return lokasi;
+    // }
+    // else {
+    //     //searchAddress(&(root->left));
+    //     //searchAddress(&(root->right));
+    // }
 }

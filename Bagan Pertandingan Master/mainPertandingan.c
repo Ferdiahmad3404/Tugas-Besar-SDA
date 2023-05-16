@@ -4,7 +4,7 @@ Tanggal Pembuatan : 8/5/2023
 Author : Ferdi, Hanif, Revandi.
 */
 
-#include "automaticBinary.c"
+#include "automaticBinary.h"
 
 
 

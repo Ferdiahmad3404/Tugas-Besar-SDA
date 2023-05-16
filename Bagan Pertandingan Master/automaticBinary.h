@@ -18,7 +18,7 @@ typedef struct Node {
     int id;
     address left;
     address right;
-};
+} Node;
 int inProgram = 1;
 int totalTim;
 int input = 0;
@@ -49,6 +49,10 @@ void tampilanMenuUtama();
 
 void inputOpsiMenu();
 
+void printGivenLevel(address root, int level);
 
+void printLevelOrder(address root);
+
+int height(address node);
 
 
