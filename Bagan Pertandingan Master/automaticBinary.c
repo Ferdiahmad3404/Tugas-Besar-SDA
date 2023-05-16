@@ -31,12 +31,18 @@ void runProgram(){
             }
             
             createBracket(&root,names,totalTim);
-            printf("%d", root->id);
             printBracket(root,0);
             for (int i = 0; i < totalTim; i++) {
                 free(names[i]);
             }
-            free(names); 
+            free(names);
+
+            char* name = "Ferdi";
+            address lokasi = searchByName(root,name);
+            editScoreByName(root,name,2);
+
+            printBracket(root,0);
+
             inputOpsiMenu();
             break;
         case 2:
@@ -67,33 +73,7 @@ void createBracket(address* node, char** names, int totalTim) {
         createBracket(&((*node)->left), names, totalTim / 2);
         createBracket(&((*node)->right), names + totalTim / 2, totalTim - totalTim / 2);
     }
-
-    
-    //hapusSemuaTim()
 }
-
-// void createNamaTim(){
-//     inputNamaTim();
-//     char** names = (char**)malloc(sizeof(char*) * totalTim);
-//     printf("Masukkan nama-nama tim:\n");
-//     for (int i = 0; i < n; i++) {
-//         names[i] = (char*)malloc(sizeof(char) * 50);
-//         printf("Tim %d: ", i + 1);
-//         scanf("%s", names[i]);
-//     }
-//     printf("\n\nAnda yakin ?\n1. Ya\n2. Kembali\n");
-//     inputOpsiMenu();
-//     switch (input)
-//     {
-//     case 1:
-//         createBracket(&root,names);
-//         printBracket(root,0);
-//         break;
-//     case 2:
-//         runProgram();
-//         break;
-//     }
-// }
 
 void printBracket(address node, int level) {
     if (node == NULL) {
@@ -103,7 +83,7 @@ void printBracket(address node, int level) {
         printf("  ");
     }
     if (node->left == NULL && node->right == NULL) {
-        printf("%s %d\n", node->name, node->id);
+        printf("%s %d\n", node->name, node->skor);
     }
     else {
         printf("[\n");
@@ -115,16 +95,6 @@ void printBracket(address node, int level) {
         printf("]\n");
     }
 }
-
-// void hapusSemuaTim(char** names){
-//     for (int i = 0; i < n; i++) {
-//         free(names[i]);
-//     }
-//     free(names); 
-// }
-
-
-// Prosedur untuk menampilkan tampilan menu utama
 
 void tampilanMenuUtama(){
     system("cls");
@@ -162,6 +132,28 @@ void inputJumlahTim(){
     
 }
 
+address searchByName(address root, char* name) {
+    if (root == NULL || strcmp(root->name, name) == 0) {
+        return root;
+    }
+
+    if (strcmp(name, root->name) < 0) {
+        return searchByName(root->left, name);
+    } else {
+        return searchByName(root->right, name);
+    }
+}
+
+
+void editScoreByName(address root, char* name, int newScore) {
+    address node = searchByName(root, name);
+    if (node != NULL) {
+        node->skor = newScore;
+    } else {
+        printf("Node dengan nama %s tidak ditemukan.\n", name);
+    }
+}
+
 
 
 // void editTree(address *root)
@@ -196,15 +188,3 @@ void inputJumlahTim(){
 //         }
 //     }
 // }
-
-address searchAddress(address root, int oldname){
-    address lokasi;
-    if ((oldname == root->name) && (root != NULL)){
-        lokasi = root;
-        return lokasi;
-    }
-    else {
-        searchAddress(&(root->left));
-        searchAddress(&(root->right));
-    }
-}

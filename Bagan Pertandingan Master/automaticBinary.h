@@ -49,6 +49,9 @@ void tampilanMenuUtama();
 
 void inputOpsiMenu();
 
+address searchByName(address root, char* name);
+
+void editScoreByName(address root, char* name, int newScore);
 
 
 
