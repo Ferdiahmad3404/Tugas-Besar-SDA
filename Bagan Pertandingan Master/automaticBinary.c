@@ -29,21 +29,39 @@ void runProgram(){
             {
                 runProgram();
             }
-            
+            system("cls");
             createBracket(&root,names,totalTim);
-            printBracket(root,0);
             for (int i = 0; i < totalTim; i++) {
                 free(names[i]);
             }
             free(names);
+                do{
+                    printBracket(root,0);
+                    tampilanEditSkor();
+                    inputOpsiMenu();
+                    if (input == 1)
+                    {
+                        char* name = "Ferdi";
+                            char* namess = "Jeihan";
+                            int skor;
+                            // printf("\nMasukkan nama tim yang ingin di edit : ");
+                            // scanf("%s", name);
+                            printf("\n Pememang : %s\n",root->name);
+                            editScoreByName(root,name,10);
+                            printBracket(root,0);
+                            editScoreByName(root,namess,11);
+                            updateParentNode(root,name);
+                            printBracket(root,0);
 
-            char* name = "Ferdi";
-            address lokasi = searchByName(root,name);
-            editScoreByName(root,name,2);
+                            system("pause");
+                    } else{
+                        input = 0;
+                        
+                    }
+                    
+                } while ( root->skor == -1);
 
-            printBracket(root,0);
-
-            inputOpsiMenu();
+            
             break;
         case 2:
             tampilanPanduan();
@@ -63,6 +81,7 @@ void createBracket(address* node, char** names, int totalTim) {
         (*node)->name = (char*)malloc(sizeof(char) * 50);
         strcpy((*node)->name, names[0]);
         (*node)->skor = -1;
+
         (*node)->left = NULL;
         (*node)->right = NULL;
     }
@@ -70,6 +89,7 @@ void createBracket(address* node, char** names, int totalTim) {
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->left = (struct Node*)malloc(sizeof(struct Node));
         (*node)->right = (struct Node*)malloc(sizeof(struct Node));
+        (*node)->name = "TBD";
         createBracket(&((*node)->left), names, totalTim / 2);
         createBracket(&((*node)->right), names + totalTim / 2, totalTim - totalTim / 2);
     }
@@ -128,8 +148,27 @@ void inputJumlahTim(){
         printf("Jumlah tim tidak boleh kurang dari 2 !!!");
         inputJumlahTim();
     }
-    
-    
+}
+
+void tampilanEditSkor(){
+    printf("1. Edit Skor\n");
+    printf("0. Exit\n");
+}
+
+address searchParentByChildName(address root, char* name) {
+    if (strcmp(root->right->name, name) == 0) {
+        return root;
+    }
+
+    if (strcmp(root->left->name, name) == 0) {
+        return root;
+    }
+
+    if (strcmp(name, root->left->name) < 0) {
+        return searchParentByChildName(root->left, name);
+    } else if(strcmp(name, root->right->name) < 0){
+        return searchParentByChildName(root->right, name);
+    }
 }
 
 address searchByName(address root, char* name) {
@@ -146,6 +185,7 @@ address searchByName(address root, char* name) {
 
 
 void editScoreByName(address root, char* name, int newScore) {
+    
     address node = searchByName(root, name);
     if (node != NULL) {
         node->skor = newScore;
@@ -154,37 +194,32 @@ void editScoreByName(address root, char* name, int newScore) {
     }
 }
 
+void updateParentNode(address root, char* name) {
+    address parent = searchParentByChildName(root, name);
+    int leftScore;
+    int rightScore;
+    if (parent->right->skor != -1 && parent->left->skor != -1)
+    {
+        if (parent == NULL ) {
+            return; // Tidak dapat memperbarui jika parent atau parent anak tidak ada
+        }
+        if(parent->left != NULL && parent->right != NULL){
+            leftScore = parent->left->skor;
+            rightScore = parent->right->skor;
+        } else if (parent->left == NULL && parent->right != NULL){
+            leftScore = 0;
+            rightScore = parent->right->skor;
+        } else if (parent->left != NULL && parent->right == NULL){
+            leftScore = parent->left->skor;
+            rightScore = 0;
+        }
 
-
-// void editTree(address *root)
-// {
-//     address change;
-//     int namaTim, skor;
-
-//     if ((*root) == NULL)
-//     {
-//         printf("\nTree Belum Dibuat!\n");
-//     }
-//     else
-//     {
-//     ulang:
-//         printf("DAFTAR PARENTS\n");
-//         listParent(*root);
-//         printf("\nMasukkan Nama Yang Ingin Diedit: ");
-//         scanf(" %s", &namaTim);
-//         change = searchAddress(*root, namaTim);
-//         if (change != NULL)
-//         {
-//             printf("Masukan skor: ");
-//             scanf(" %c", &skor);
-//             change->info = skor;
-//             printf("\nUpdate Skor Sukses!\n");
-//         }
-//         else
-//         {
-//             printf("\nTim Tidak Ada, Ulangi. \n");
-//             system("pause");
-//             goto ulang;
-//         }
-//     }
-// }
+        if (leftScore > rightScore ) {
+            parent->name = parent->left->name; // Mengisi nama parent parent dengan nama parent anak sebelah kiri
+        } else if (leftScore < rightScore ) {
+            parent->name = parent->right->name; // Mengisi nama parent parent dengan nama parent anak sebelah kanan
+        }
+    }
+    
+    
+}

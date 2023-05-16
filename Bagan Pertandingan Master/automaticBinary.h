@@ -15,7 +15,7 @@ typedef struct Node * address;
 typedef struct Node {
     char* name;
     int skor;
-    int id;
+    address parent;
     address left;
     address right;
 };
@@ -49,9 +49,13 @@ void tampilanMenuUtama();
 
 void inputOpsiMenu();
 
-address searchByName(address root, char* name);
+void updateParentNode(address parent, char* name);
 
 void editScoreByName(address root, char* name, int newScore);
+
+address searchParentByChildName(address root, char* name);
+
+address searchByName(address root, char* name);
 
 
 
