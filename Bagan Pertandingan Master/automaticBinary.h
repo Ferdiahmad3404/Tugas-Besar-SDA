@@ -15,16 +15,25 @@ typedef struct Node * address;
 typedef struct Node {
     char* name;
     int skor;
+    int id;
     address left;
     address right;
 };
+int inProgram = 1;
+int totalTim;
+int input = 0;
+struct Node* root = NULL;
 
 
 
 /***************************/
 /*  S P E S I F I K A S I  */
 /***************************/
-void createBracket(address* node, char** names, int n);
+void runProgram();
+
+void inputJumlahTim();
+
+void createBracket(address* node, char** names, int totalTim);
 // Fungsi untuk membuat node yang membentuk menjadi tree / bracket secara otomatis sesuai dengan jumlah sebanyak n (generator tree)
 
 int getLevel(address node, char* name, int level);
@@ -34,8 +43,11 @@ void printBracket(address node, int level);
 // Prosedur untuk menampilkan binary tree yang berbentuk bracket
 
 void tampilanPanduan();
+// Prosedur untuk menampilkan panduan
 
-int inputan();
+void tampilanMenuUtama();
+
+void inputOpsiMenu();
 
 
 

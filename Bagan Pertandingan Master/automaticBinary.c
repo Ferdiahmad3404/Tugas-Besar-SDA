@@ -6,8 +6,53 @@ Author : Ferdi, Hanif, Revandi.
 
 #include "automaticBinary.h"
 
-void createBracket(address* node, char** names, int n) {
-    if (n == 1) {
+
+
+void runProgram(){
+        tampilanMenuUtama();
+        inputOpsiMenu(&input);
+        switch (input)
+        {
+        case 1:
+            system("cls");
+            inputJumlahTim();
+            char** names = (char**)malloc(sizeof(char*) * totalTim);
+            printf("Masukkan nama-nama tim:\n");
+            for (int i = 0; i < totalTim; i++) {
+                names[i] = (char*)malloc(sizeof(char) * 50);
+                printf("Tim %d: ", i + 1);
+                scanf("%s", names[i]);
+            }
+            printf("\n\nAnda yakin ?\n1. Ya\n2. Kembali\n");
+            inputOpsiMenu();
+            if (input == 2)
+            {
+                runProgram();
+            }
+            
+            createBracket(&root,names,totalTim);
+            printf("%d", root->id);
+            printBracket(root,0);
+            for (int i = 0; i < totalTim; i++) {
+                free(names[i]);
+            }
+            free(names); 
+            inputOpsiMenu();
+            break;
+        case 2:
+            tampilanPanduan();
+            inputOpsiMenu();
+            break;
+        case 99:
+            inProgram = 0;
+            break;
+        }
+}
+
+
+void createBracket(address* node, char** names, int totalTim) {
+    
+    if (totalTim == 1) {
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->name = (char*)malloc(sizeof(char) * 50);
         strcpy((*node)->name, names[0]);
@@ -16,14 +61,39 @@ void createBracket(address* node, char** names, int n) {
         (*node)->right = NULL;
     }
     else {
-        
         (*node) = (struct Node*)malloc(sizeof(struct Node));
         (*node)->left = (struct Node*)malloc(sizeof(struct Node));
         (*node)->right = (struct Node*)malloc(sizeof(struct Node));
-        createBracket(&((*node)->left), names, n / 2);
-        createBracket(&((*node)->right), names + n / 2, n - n / 2);
+        createBracket(&((*node)->left), names, totalTim / 2);
+        createBracket(&((*node)->right), names + totalTim / 2, totalTim - totalTim / 2);
     }
+
+    
+    //hapusSemuaTim()
 }
+
+// void createNamaTim(){
+//     inputNamaTim();
+//     char** names = (char**)malloc(sizeof(char*) * totalTim);
+//     printf("Masukkan nama-nama tim:\n");
+//     for (int i = 0; i < n; i++) {
+//         names[i] = (char*)malloc(sizeof(char) * 50);
+//         printf("Tim %d: ", i + 1);
+//         scanf("%s", names[i]);
+//     }
+//     printf("\n\nAnda yakin ?\n1. Ya\n2. Kembali\n");
+//     inputOpsiMenu();
+//     switch (input)
+//     {
+//     case 1:
+//         createBracket(&root,names);
+//         printBracket(root,0);
+//         break;
+//     case 2:
+//         runProgram();
+//         break;
+//     }
+// }
 
 void printBracket(address node, int level) {
     if (node == NULL) {
@@ -33,7 +103,7 @@ void printBracket(address node, int level) {
         printf("  ");
     }
     if (node->left == NULL && node->right == NULL) {
-        printf("%s\n", node->name);
+        printf("%s %d\n", node->name, node->id);
     }
     else {
         printf("[\n");
@@ -46,27 +116,95 @@ void printBracket(address node, int level) {
     }
 }
 
+// void hapusSemuaTim(char** names){
+//     for (int i = 0; i < n; i++) {
+//         free(names[i]);
+//     }
+//     free(names); 
+// }
+
 
 // Prosedur untuk menampilkan tampilan menu utama
+
 void tampilanMenuUtama(){
+    system("cls");
     printf("Bagan Pertandingan\n");
-    printf("1. Buat Bagan\n");
-    printf("2. Panduan\n");
-    printf("99. Exit\n");
+    printf("[1] Buat Bagan\n");
+    printf("[2] Panduan\n");
+    printf("[99] Exit\n");
 }
 
 void tampilanPanduan(){
     system("cls");
     printf("Panduan\n");
-    printf("1. Tim yang berpartisipasi dalam turnamen atau kejuaraan harus lebih dari satu.\n");
-    printf("2. Tim yang kalah dalam pertandingan akan langsung gugur.\n");
-    printf("3. Tim yang bertahan sampai akhir keluar sebagai pemenang.\n");
-    printf("4. Pembagian tim menggunakan sistem “Bye”.\n");
+    printf("[1] Tim yang berpartisipasi dalam turnamen atau kejuaraan harus lebih dari satu.\n");
+    printf("[2] Tim yang kalah dalam pertandingan akan langsung gugur.\n");
+    printf("[3] Tim yang bertahan sampai akhir keluar sebagai pemenang.\n");
+    printf("[4] Pembagian tim menggunakan sistem “Bye”.\n");
+
+    printf("0. Kembali\n");
 }
 
-int inputan(){
-    int opsi;
+void inputOpsiMenu(){
     printf("Pilih Opsi : ");
-    scanf("%d",&opsi);
-    return opsi;
+    scanf("%d",&input);
+}
+
+void inputJumlahTim(){
+    printf("Masukkan jumlah tim: ");
+    scanf("%d", &totalTim);
+    if (totalTim < 2)
+    {
+        printf("Jumlah tim tidak boleh kurang dari 2 !!!");
+        inputJumlahTim();
+    }
+    
+    
+}
+
+
+
+// void editTree(address *root)
+// {
+//     address change;
+//     int namaTim, skor;
+
+//     if ((*root) == NULL)
+//     {
+//         printf("\nTree Belum Dibuat!\n");
+//     }
+//     else
+//     {
+//     ulang:
+//         printf("DAFTAR PARENTS\n");
+//         listParent(*root);
+//         printf("\nMasukkan Nama Yang Ingin Diedit: ");
+//         scanf(" %s", &namaTim);
+//         change = searchAddress(*root, namaTim);
+//         if (change != NULL)
+//         {
+//             printf("Masukan skor: ");
+//             scanf(" %c", &skor);
+//             change->info = skor;
+//             printf("\nUpdate Skor Sukses!\n");
+//         }
+//         else
+//         {
+//             printf("\nTim Tidak Ada, Ulangi. \n");
+//             system("pause");
+//             goto ulang;
+//         }
+//     }
+// }
+
+address searchAddress(address root, int oldname){
+    address lokasi;
+    if ((oldname == root->name) && (root != NULL)){
+        lokasi = root;
+        return lokasi;
+    }
+    else {
+        searchAddress(&(root->left));
+        searchAddress(&(root->right));
+    }
 }
