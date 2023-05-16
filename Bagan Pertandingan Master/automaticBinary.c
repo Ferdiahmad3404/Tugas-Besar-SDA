@@ -316,3 +316,55 @@ address searchAddress(address root, int oldname){
     //     //searchAddress(&(root->right));
     // }
 }
+
+
+
+void createBracket(address* node, char** names, int totalTim) {
+    address queue[totalTim];
+    int front = 0, rear = -1;
+
+    // Menambahkan setiap node ke dalam queue
+    for (int i = 0; i < totalTim; i++) {
+        queue[++rear] = createNode(names[i]);
+    }
+
+    // Membuat binary tree dari setiap node pada queue
+    while (front <= rear) {
+        address currNode = queue[front++];
+
+        if (front <= rear) {
+            currNode->left = queue[front++];
+        }
+        if (front <= rear) {
+            currNode->right = queue[front++];
+        }
+    }
+
+    *node = queue[0];
+}
+
+void printBracket(address node, int level, int isLeft) {
+    if (node != NULL) {
+        printBracket(node->right, level + 1, 0);
+
+        for (int i = 0; i < level; i++) {
+            printf("     ");
+        }
+
+        if (isLeft) {
+            printf("  /--");
+        } else {
+            printf("  \\--");
+        }
+
+        if (level == 0) {
+            printf("*");
+        } else {
+            printf("^");
+        }
+
+        printf(" %s (%d)\n", node->name, node->score);
+
+        printBracket(node->left, level + 1, 1);
+    }
+}
